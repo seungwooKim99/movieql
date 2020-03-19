@@ -6,6 +6,7 @@ type Movie {
   Poster: String!
 }
 
+
 type Query {
   movies(title: String): [Movie]!
 }
