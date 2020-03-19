@@ -1,50 +1,11 @@
-let movies = [
-  {
-    id: 0,
-    name: "Star Wars - The new one",
-    score: 8
-  },
-  {
-    id: 1,
-    name: "Avengers - The new one",
-    score: 8
-  },
-  {
-    id: 2,
-    name: "The Godfather I",
-    score: 9
-  },
-  {
-    id: 3,
-    name: "Parasite",
-    score: 99
-  }
-];
+import fetch from "node-fetch";
 
-export const getMovies = () => movies;
+const API_KEY = `331e69c9`;
+const API_URL = "http://www.omdbapi.com/";
 
-export const getById = id => {
-  const filteredMovie = movies.filter(movie => id === movie.id);
-  return filteredMovie[0];
-};
-
-export const deleteMovie = id => {
-  const cleandMovies = movies.filter(movie => movie.id !== id);
-  if (movies.length > cleandMovies.length) {
-    movies = cleandMovies;
-    return true;
-  }
-  else {
-    return false;
-  }
-};
-
-export const addMovie = (name, score) => {
-  const newMovie = {
-    id: `${movies.length + 1}`,
-    name,
-    score
-  };
-  movies.push(newMovie);
-  return newMovie;
-};
+export const getMovies = (title) => {
+  let REQUST_URL = API_URL;
+  REQUST_URL += `?s=${title}`;
+  REQUST_URL += `&apikey=${API_KEY}`;
+  return fetch(`${REQUST_URL}`).then(res => res.json()).then(json => json.Search);
+}
